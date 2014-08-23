@@ -26,12 +26,16 @@ class PlayState extends FlxState
 	private var player1 : Player;
 	private var player2 : Player;
 	
+	private var player1Inventory : InventoryView;
+	private var player2Inventory : InventoryView;
+	
 	private var ground : Ground;
 
 	private var blocks : FlxTypedGroup<Block>;
 	
 	private var giftBlock : GiftBlock;
 	
+	private var middleScreen = Std.int(FlxG.height / 2);	
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -40,9 +44,7 @@ class PlayState extends FlxState
 	{
 		FlxG.mouse.visible = false;
 		
-		FlxG.cameras.bgColor = FlxColor.WHITE;	
-		
-		
+		FlxG.cameras.bgColor = FlxColor.WHITE;
 		
 		player1 = new Player(16, FlxG.height - 32, FlxColor.BLUE, true);
 		add(player1);
@@ -50,11 +52,16 @@ class PlayState extends FlxState
 		player2 = new Player(FlxG.width - 32, FlxG.height - 32, FlxColor.RED, false);
 		add(player2);
 		
+		ground = new Ground(16, FlxG.height - 16);
+		add(ground);
+		
+		player1Inventory = new InventoryView(0, 0, player1.getInventory());
+		add(player1Inventory);
+		player2Inventory = new InventoryView(0, middleScreen, player2.getInventory());
+		add(player2Inventory);
+		
 		createCamera(0, 0xFFFFCCCC, player1);
 		createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
-		
-		ground = new Ground(0, FlxG.height - 16);
-		add(ground);
 		
 		loadLevel();
 		
@@ -94,9 +101,10 @@ class PlayState extends FlxState
 	
 	private function createCamera(Y:Int, Color:Int, Follow:FlxSprite):Void
 	{
-		var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		//var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		var camera:FlxCamera = new FlxCamera(16, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		//var camera:FlxCamera = new FlxCamera(0, Y, FlxG.width, Std.int(FlxG.height / 2););
-	//	camera.setBounds(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		camera.bgColor = Color;
 		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
 		FlxG.cameras.add(camera);
@@ -131,11 +139,16 @@ class PlayState extends FlxState
 	
 	function collideWithGift(gift : FlxObject, player : FlxObject) : Void
 	{
-		var popup = new InputPopup();
+		//var popup = new InputPopup();
+		//popup.x = 100;
+		//popup.y = 100;
 		//add(popup);
-		popup.x = 100;
-		popup.y = 100;
-		add(popup);
+		
+		gift.x = player1.x - 10;
+		gift.y = player1.y;
+		
+		
+		//player1.receiveGift(gift);
 	}
 
 	/**

@@ -11,6 +11,8 @@ import flixel.util.FlxColor;
 class Player extends FlxSprite
 {
 	private var idle : Bool = false;
+	
+	private var inventory : Inventory = new Inventory();
 
 	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
 	{
@@ -20,9 +22,7 @@ class Player extends FlxSprite
 		acceleration.y = 200;
 		drag.x = maxVelocity.x * 4;
 		
-		this.idle = idle;
-		
-		//offset.set(1, 1);
+		this.idle = idle;		
 	}
 	
 	public function toggleIdle()
@@ -48,7 +48,6 @@ class Player extends FlxSprite
 				acceleration.x = maxVelocity.x * 4;
 			}	
 			
-			
 			if (FlxG.keys.justPressed.UP && isTouchingFloor())
 			{
 				velocity.y -= maxVelocity.y / 1.5;
@@ -58,6 +57,11 @@ class Player extends FlxSprite
 		}
 		
 		super.update();
+	}
+	
+	public function getInventory() : Inventory
+	{
+		return this.inventory;
 	}
 	
 	function isTouchingFloor() 
