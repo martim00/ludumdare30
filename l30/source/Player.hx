@@ -10,39 +10,50 @@ import flixel.util.FlxColor;
  */
 class Player extends FlxSprite
 {
+	private var idle : Bool = false;
 
-	public function new(X:Float=0, Y:Float=0) 
+	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
 	{
 		super(X, Y);
-		this.makeGraphic(10, 10, FlxColor.BLUE);
+		this.makeGraphic(10, 10, color);
 		maxVelocity.set(100, 200);
 		acceleration.y = 200;
 		drag.x = maxVelocity.x * 4;
 		
+		this.idle = idle;
+		
 		//offset.set(1, 1);
-		
-		
 	}
+	
+	public function toggleIdle()
+	{
+		this.idle = !this.idle;
+	}
+	
+	
 	
 	override function update() 
 	{
-		// Player 1 controls
-		acceleration.x = 0;
-		
-		if (FlxG.keys.pressed.LEFT)
-		{
-			acceleration.x = -maxVelocity.x * 4;
-		}
-		
-		if (FlxG.keys.pressed.RIGHT)
-		{
-			acceleration.x = maxVelocity.x * 4;
-		}	
-		
-		
-		if (FlxG.keys.justPressed.UP && isTouchingFloor())
-		{
-			velocity.y -= maxVelocity.y / 1.5;
+		if (!idle) 
+		{	
+			// Player 1 controls
+			acceleration.x = 0;
+			
+			if (FlxG.keys.pressed.LEFT)
+			{
+				acceleration.x = -maxVelocity.x * 4;
+			}
+			
+			if (FlxG.keys.pressed.RIGHT)
+			{
+				acceleration.x = maxVelocity.x * 4;
+			}	
+			
+			
+			if (FlxG.keys.justPressed.UP && isTouchingFloor())
+			{
+				velocity.y -= maxVelocity.y / 1.5;
+			}
 		}
 		
 		super.update();

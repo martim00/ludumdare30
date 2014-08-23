@@ -23,6 +23,8 @@ class PlayState extends FlxState
 	
 	private var ground : Ground;
 	
+	
+	
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -35,10 +37,10 @@ class PlayState extends FlxState
 		level = new FlxTilemap();
 		//add(level);
 		
-		player1 = new Player(10, FlxG.height - 20 - 100);
+		player1 = new Player(10, FlxG.height - 20 - 100, FlxColor.BLUE, true);
 		add(player1);
 		
-		player2 = new Player(100, FlxG.height - 20);
+		player2 = new Player(FlxG.width - 20, FlxG.height - 20 - 100, FlxColor.RED, false);
 		add(player2);
 		
 		createCamera(0, 0xFFFFCCCC, player1);
@@ -69,7 +71,21 @@ class PlayState extends FlxState
 		super.destroy();
 	}
 	
+	function handleKeys() : Void
+	{
+		if (FlxG.keys.anyJustPressed(["SPACE"]))
+		{
+			trace("space clicked");
+			player1.toggleIdle();
+			player2.toggleIdle();
+		}
+		
+	}
 	
+	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void
+	{
+		FlxG.resetState();
+	}
 
 	/**
 	 * Function that is called once every frame.
@@ -77,8 +93,13 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+		
+		handleKeys();
+		
 		FlxG.collide(ground, player1);
 		FlxG.collide(player2, ground);
+		
+		FlxG.collide(player1, player2, collidePlayers);
 		
 	}	
 }
