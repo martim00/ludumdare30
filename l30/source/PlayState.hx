@@ -10,6 +10,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
+import flixel.util.FlxPoint;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -37,10 +38,10 @@ class PlayState extends FlxState
 		level = new FlxTilemap();
 		//add(level);
 		
-		player1 = new Player(10, FlxG.height - 20 - 100, FlxColor.BLUE, true);
+		player1 = new Player(10, FlxG.height - 20, FlxColor.BLUE, true);
 		add(player1);
 		
-		player2 = new Player(FlxG.width - 20, FlxG.height - 20 - 100, FlxColor.RED, false);
+		player2 = new Player(FlxG.width - 20, FlxG.height - 20, FlxColor.RED, false);
 		add(player2);
 		
 		createCamera(0, 0xFFFFCCCC, player1);
@@ -56,9 +57,9 @@ class PlayState extends FlxState
 	{
 		var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		//var camera:FlxCamera = new FlxCamera(0, Y, FlxG.width, Std.int(FlxG.height / 2););
-		//camera.setBounds(0, 0, Std.int(FlxG.width), Std.int(FlxG.height / 2));
+	//	camera.setBounds(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		camera.bgColor = Color;
-		camera.follow(Follow);
+		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
 		FlxG.cameras.add(camera);
 	}
 	
