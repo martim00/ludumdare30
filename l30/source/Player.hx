@@ -69,6 +69,7 @@ class Player extends FlxSprite
 			
 		} else {
 			velocity.x = 0;
+			acceleration.x = 0;
 		}
 		
 		
