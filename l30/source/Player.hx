@@ -31,7 +31,6 @@ class Player extends FlxSprite
 	}
 	
 	
-	
 	override function update() 
 	{
 		if (!idle) 
@@ -54,6 +53,8 @@ class Player extends FlxSprite
 			{
 				velocity.y -= maxVelocity.y / 1.5;
 			}
+		} else {
+			velocity.x = 0;
 		}
 		
 		super.update();

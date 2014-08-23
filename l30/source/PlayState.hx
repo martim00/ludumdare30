@@ -24,8 +24,7 @@ class PlayState extends FlxState
 	
 	private var ground : Ground;
 	
-	
-	
+		
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -85,7 +84,9 @@ class PlayState extends FlxState
 	
 	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void
 	{
-		FlxG.resetState();
+		FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
+				FlxG.switchState(new EndState());
+			});	
 	}
 
 	/**
