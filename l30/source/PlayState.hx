@@ -26,9 +26,10 @@ class PlayState extends FlxState
 	private var player2 : Player;
 	
 	private var ground : Ground;
-	
+
 	private var blocks : FlxTypedGroup<Block>;
 	
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -49,7 +50,7 @@ class PlayState extends FlxState
 		createCamera(0, 0xFFFFCCCC, player1);
 		createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
 		
-		ground = new Ground(0, FlxG.height - 10);
+		ground = new Ground(0, FlxG.height - 16);
 		add(ground);
 		
 		//blocks = new FlxTypedGroup<Block>();
@@ -119,7 +120,9 @@ class PlayState extends FlxState
 	
 	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void
 	{
-		FlxG.resetState();
+		FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
+				FlxG.switchState(new EndState());
+			});	
 	}
 
 	/**
