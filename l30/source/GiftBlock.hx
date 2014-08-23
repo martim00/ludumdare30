@@ -7,16 +7,17 @@ import flixel.util.FlxColor;
  * ...
  * @author ...
  */
-class Block extends FlxSprite
+class GiftBlock extends FlxSprite
 {
 
-	public function new(X:Float=0, Y:Float=0, color : Int) 
+	public function new(X:Float=0, Y:Float=0) 
 	{
 		super(X, Y);
 		
 		solid = immovable = true;
 		
-		makeGraphic(16, 16, color);
+		makeGraphic(16, 16, FlxColor.YELLOW);
+		
 	}
 	
 }

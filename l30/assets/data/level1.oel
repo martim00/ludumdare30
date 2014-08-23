@@ -5,5 +5,6 @@
     <block id="5" x="144" y="416" />
     <block id="6" x="144" y="400" />
     <block id="7" x="576" y="448" />
+    <giftBlock id="0" x="624" y="448" />
   </blocks>
 </level>

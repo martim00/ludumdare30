@@ -13,6 +13,7 @@ import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxPoint;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
+import flixel.addons.ui.FlxUIPopup;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -28,6 +29,8 @@ class PlayState extends FlxState
 	private var ground : Ground;
 
 	private var blocks : FlxTypedGroup<Block>;
+	
+	private var giftBlock : GiftBlock;
 	
 
 	/**
@@ -53,19 +56,14 @@ class PlayState extends FlxState
 		ground = new Ground(0, FlxG.height - 16);
 		add(ground);
 		
-		//blocks = new FlxTypedGroup<Block>();
-		//loader = new FlxOgmoLoader(AssetPaths.level1__oel);
-		
 		loadLevel();
 		
 		super.create();
 	}
 	
 	private function loadLevel()
-	{		
-		//level = new FlxTilemap();
-		blocks = new FlxTypedGroup<Block>();
-		//var levelpath = "assets/data/level" + level + ".oel";	
+	{	
+		blocks = new FlxTypedGroup<Block>();		
 		loader = new FlxOgmoLoader(AssetPaths.level1__oel);
 		loader.loadEntities(placeEntities, "blocks");
 	}
@@ -76,11 +74,17 @@ class PlayState extends FlxState
 		var y : Int = Std.parseInt(entityData.get("y"));
 		
 		if (entityName == "block")
-		{
-			trace("block loaded");
+		{		
 			var block = new Block(x, y, FlxColor.GREEN);
 			blocks.add(block);
 			add(block);
+		}
+		
+		if (entityName == "giftBlock")
+		{		
+			var gift = new GiftBlock(x, y);
+			//blocks.add(block);
+			add(gift);
 		}
 		
 		
@@ -124,6 +128,15 @@ class PlayState extends FlxState
 				FlxG.switchState(new EndState());
 			});	
 	}
+	
+	function collideWithGift(gift : FlxObject, player : FlxObject) : Void
+	{
+		var popup = new InputPopup();
+		//add(popup);
+		popup.x = 100;
+		popup.y = 100;
+		add(popup);
+	}
 
 	/**
 	 * Function that is called once every frame.
@@ -139,6 +152,8 @@ class PlayState extends FlxState
 		
 		FlxG.collide(blocks, player1);
 		FlxG.collide(blocks, player2);
+		
+		FlxG.collide(giftBlock, player2, collideWithGift);
 		
 		FlxG.collide(player1, player2, collidePlayers);
 		
