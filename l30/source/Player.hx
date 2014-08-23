@@ -15,7 +15,7 @@ class Player extends FlxSprite
 	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
 	{
 		super(X, Y);
-		this.makeGraphic(10, 10, color);
+		this.makeGraphic(16, 16, color);
 		maxVelocity.set(100, 200);
 		acceleration.y = 200;
 		drag.x = maxVelocity.x * 4;

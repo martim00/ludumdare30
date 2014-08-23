@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -11,12 +12,14 @@ import flixel.util.FlxMath;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxPoint;
+import flixel.addons.editors.ogmo.FlxOgmoLoader;
 
 /**
  * A FlxState which can be used for the actual gameplay.
  */
 class PlayState extends FlxState
 {
+	private var loader: FlxOgmoLoader;
 	private var level : FlxTilemap;
 	
 	private var player1 : Player;
@@ -24,7 +27,7 @@ class PlayState extends FlxState
 	
 	private var ground : Ground;
 	
-	
+	private var blocks : FlxTypedGroup<Block>;
 	
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -33,15 +36,14 @@ class PlayState extends FlxState
 	{
 		FlxG.mouse.visible = false;
 		
-		FlxG.cameras.bgColor = FlxColor.WHITE;
+		FlxG.cameras.bgColor = FlxColor.WHITE;	
 		
-		level = new FlxTilemap();
-		//add(level);
 		
-		player1 = new Player(10, FlxG.height - 20, FlxColor.BLUE, true);
+		
+		player1 = new Player(16, FlxG.height - 32, FlxColor.BLUE, true);
 		add(player1);
 		
-		player2 = new Player(FlxG.width - 20, FlxG.height - 20, FlxColor.RED, false);
+		player2 = new Player(FlxG.width - 32, FlxG.height - 32, FlxColor.RED, false);
 		add(player2);
 		
 		createCamera(0, 0xFFFFCCCC, player1);
@@ -50,8 +52,40 @@ class PlayState extends FlxState
 		ground = new Ground(0, FlxG.height - 10);
 		add(ground);
 		
+		//blocks = new FlxTypedGroup<Block>();
+		//loader = new FlxOgmoLoader(AssetPaths.level1__oel);
+		
+		loadLevel();
+		
 		super.create();
 	}
+	
+	private function loadLevel()
+	{		
+		//level = new FlxTilemap();
+		blocks = new FlxTypedGroup<Block>();
+		//var levelpath = "assets/data/level" + level + ".oel";	
+		loader = new FlxOgmoLoader(AssetPaths.level1__oel);
+		loader.loadEntities(placeEntities, "blocks");
+	}
+	
+	private function placeEntities(entityName: String, entityData:Xml):Void
+	{
+		var x : Int = Std.parseInt(entityData.get("x"));
+		var y : Int = Std.parseInt(entityData.get("y"));
+		
+		if (entityName == "block")
+		{
+			trace("block loaded");
+			var block = new Block(x, y, FlxColor.GREEN);
+			blocks.add(block);
+			add(block);
+		}
+		
+		
+		
+	}
+	
 	
 	private function createCamera(Y:Int, Color:Int, Follow:FlxSprite):Void
 	{
@@ -98,7 +132,10 @@ class PlayState extends FlxState
 		handleKeys();
 		
 		FlxG.collide(ground, player1);
-		FlxG.collide(player2, ground);
+		FlxG.collide(ground, player2);
+		
+		FlxG.collide(blocks, player1);
+		FlxG.collide(blocks, player2);
 		
 		FlxG.collide(player1, player2, collidePlayers);
 		
