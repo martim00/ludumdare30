@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 
+
 /**
  * ...
  * @author ...
@@ -52,9 +53,24 @@ class Player extends FlxSprite
 			{
 				velocity.y -= maxVelocity.y / 1.5;
 			}
+			
+			
+			// clamp...
+			if (x >= Constants.LEVEL_WIDTH - this.width)
+			{
+				x = Constants.LEVEL_WIDTH - this.width;
+			}
+			
+			if (x < Constants.LEVEL_BEGIN_X )
+			{
+				x = Constants.LEVEL_BEGIN_X ;
+			}
+			
+			
 		} else {
 			velocity.x = 0;
 		}
+		
 		
 		super.update();
 	}

@@ -49,7 +49,8 @@ class PlayState extends FlxState
 		player1 = new Player(16, FlxG.height - 32, FlxColor.BLUE, true);
 		add(player1);
 		
-		player2 = new Player(FlxG.width - 32, FlxG.height - 32, FlxColor.RED, false);
+		//player2 = new Player(FlxG.width - 32, FlxG.height - 32, FlxColor.RED, false);
+		player2 = new Player(Constants.LEVEL_WIDTH - 32, FlxG.height - 32, FlxColor.RED, false);
 		add(player2);
 		
 		ground = new Ground(16, FlxG.height - 16);
@@ -71,7 +72,7 @@ class PlayState extends FlxState
 	private function loadLevel()
 	{	
 		blocks = new FlxTypedGroup<Block>();		
-		loader = new FlxOgmoLoader(AssetPaths.level1__oel);
+		loader = new FlxOgmoLoader(AssetPaths.level2__oel);
 		loader.loadEntities(placeEntities, "blocks");
 	}
 	
@@ -104,7 +105,11 @@ class PlayState extends FlxState
 		//var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		var camera:FlxCamera = new FlxCamera(16, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		//var camera:FlxCamera = new FlxCamera(0, Y, FlxG.width, Std.int(FlxG.height / 2););
-		camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		
+		// isso funciona
+		//camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		
+		camera.setBounds(16, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, Std.int(FlxG.height / 2));
 		camera.bgColor = Color;
 		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
 		FlxG.cameras.add(camera);
