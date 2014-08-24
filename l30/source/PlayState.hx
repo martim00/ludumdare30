@@ -35,8 +35,7 @@ class PlayState extends FlxState
 	
 	private var giftBlock : GiftBlock;
 		
-	private var middleScreen = Std.int(FlxG.height / 2);	
-	private var middleScreen = Std.int(FlxG.height / 2);	
+	private var middleScreen = Std.int(FlxG.height / 2);
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
