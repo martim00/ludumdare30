@@ -265,8 +265,9 @@ class PlayState extends FlxState
 		FlxG.collide(ground, player1);
 		FlxG.collide(ground, player2);
 		
-		FlxG.collide(player1, blocks);
-		FlxG.collide(player2, blocks);
+		FlxG.collide(blocks, player1);
+		FlxG.collide(blocks, player2);	
+		
 		
 		//FlxG.collide(player2, blocks);
 		
@@ -279,7 +280,6 @@ class PlayState extends FlxState
 		
 		FlxG.collide(giftBlocks, player1);
 		FlxG.collide(giftBlocks, player2);
-		
 		
 		
 		FlxG.collide(player1, player2, collidePlayers);		

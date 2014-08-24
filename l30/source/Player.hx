@@ -62,7 +62,7 @@ class Player extends FlxSprite
 			if (FlxG.keys.pressed.RIGHT)
 			{
 				acceleration.x = maxVelocity.x * 4;
-			}	
+			}				
 			
 			if (FlxG.keys.justPressed.UP && isTouchingFloor())
 			{
@@ -91,8 +91,6 @@ class Player extends FlxSprite
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;
 		
-		
-		
 		super.update();
 	}
 	
@@ -103,7 +101,11 @@ class Player extends FlxSprite
 	
 	function isTouchingFloor() : Bool
 	{	
-		return isTouching(FlxObject.FLOOR);
+		trace("is touching floor: " + isTouching(FlxObject.FLOOR));
+		trace("is touching right: " + isTouching(FlxObject.RIGHT));
+		
+		return isTouching(FlxObject.FLOOR) 
+			&& !isTouching(FlxObject.RIGHT); // pelo menos evitamos a escalada com isso
 		//return velocity.y == 0;
 	}
 	
