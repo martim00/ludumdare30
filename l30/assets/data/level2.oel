@@ -13,5 +13,9 @@
     <block id="10" x="1216" y="368" />
     <block id="11" x="4592" y="368" />
     <block id="12" x="4736" y="368" />
+    <giftBlock id="14" x="784" y="448" />
+    <giftBlock id="13" x="4864" y="448" />
+    <giftBlock id="15" x="4640" y="448" />
+    <giftBlock id="16" x="336" y="448" />
   </blocks>
 </level>

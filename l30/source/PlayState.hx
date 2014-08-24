@@ -14,6 +14,7 @@ import flixel.FlxCamera;
 import flixel.util.FlxPoint;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.addons.ui.FlxUIPopup;
+import flixel.util.FlxTimer;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -33,9 +34,14 @@ class PlayState extends FlxState
 
 	private var blocks : FlxTypedGroup<Block>;
 	
-	private var giftBlock : GiftBlock;
+	private var giftBlocks : FlxTypedGroup<GiftBlock>;
+	//private var giftBlock : ;
 	
 	private var middleScreen = Std.int(FlxG.height / 2);	
+	
+	private var textSize : Int = 100;
+	var pressXText : FlxText;
+	
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -46,32 +52,46 @@ class PlayState extends FlxState
 		
 		FlxG.cameras.bgColor = FlxColor.WHITE;
 		
-		player1 = new Player(16, FlxG.height - 32, FlxColor.BLUE, true);
+		player1 = new Player(16, FlxG.height - Constants.LEVEL_END_Y, FlxColor.BLUE, false, 1);
+		add(player1.getBounds());
 		add(player1);
 		
+		
 		//player2 = new Player(FlxG.width - 32, FlxG.height - 32, FlxColor.RED, false);
-		player2 = new Player(Constants.LEVEL_WIDTH - 32, FlxG.height - 32, FlxColor.RED, false);
+		player2 = new Player(Constants.LEVEL_WIDTH - 32, FlxG.height - Constants.LEVEL_END_Y, FlxColor.RED, true, 2);
+		add(player2.getBounds());
 		add(player2);
 		
+		
 		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
+		
 		add(ground);
 		
 		/*player1Inventory = new InventoryView(0, 0, player1.getInventory());
 		add(player1Inventory);
 		player2Inventory = new InventoryView(0, middleScreen, player2.getInventory());
 		add(player2Inventory);*/
+	
 		
 		createCamera(0, 0xFFFFCCCC, player1);
 		createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
 		
 		loadLevel();
 		
+		buildTexts();
+		
 		super.create();
+	}
+	
+	private function buildTexts() : Void
+	{
+		pressXText = new FlxText(0, 0, textSize, "Press X to send to your couple!");
 	}
 	
 	private function loadLevel()
 	{	
-		blocks = new FlxTypedGroup<Block>();		
+		blocks = new FlxTypedGroup<Block>();
+		giftBlocks = new FlxTypedGroup<GiftBlock>();
 		loader = new FlxOgmoLoader(AssetPaths.level2__oel);
 		loader.loadEntities(placeEntities, "blocks");
 	}
@@ -91,7 +111,7 @@ class PlayState extends FlxState
 		if (entityName == "giftBlock")
 		{		
 			var gift = new GiftBlock(x, y);
-			//blocks.add(block);
+			giftBlocks.add(gift);
 			add(gift);
 		}
 		
@@ -102,14 +122,15 @@ class PlayState extends FlxState
 	
 	private function createCamera(Y:Int, Color:Int, Follow:FlxSprite):Void
 	{
-		//var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		var camera:FlxCamera = new FlxCamera(Constants.LEVEL_BEGIN_X, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
-		//var camera:FlxCamera = new FlxCamera(0, Y, FlxG.width, Std.int(FlxG.height / 2););
+		//var camera:FlxCamera = new FlxCamera(Constants.LEVEL_BEGIN_X, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2) - 32);
+		
 		
 		// isso funciona
 		//camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		
 		camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, Std.int(FlxG.height / 2));
+	//	camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, FlxG.height - Constants.LEVEL_END_Y - 32);
 		camera.bgColor = Color;
 		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
 		FlxG.cameras.add(camera);
@@ -142,38 +163,67 @@ class PlayState extends FlxState
 			});	
 	}
 	
-	function collideWithGift(gift : FlxObject, player : FlxObject) : Void
+	function myCallback(Timer : FlxTimer) : Void
 	{
-		//var popup = new InputPopup();
-		//popup.x = 100;
-		//popup.y = 100;
-		//add(popup);
+		remove(pressXText);
+	}
+	
+	
+	function overlapsGiftBlocks(gift : FlxObject, playerBounds : FlxObject)
+	{
+		new FlxTimer(3, myCallback);
 		
-		gift.x = player1.x - 10;
-		gift.y = player1.y;
+		pressXText.x = playerBounds.x - textSize / 2;
+		pressXText.y = playerBounds.y - 50;
+		pressXText.color = FlxColor.YELLOW;
+		add(pressXText);		
+		
+		var targetPlayerBounds = playerBounds == player1.getBounds() 
+			? player2.getBounds() : player1.getBounds();
 		
 		
-		//player1.receiveGift(gift);
+		trace("OVERLAPPING");
+		if (FlxG.keys.anyJustPressed(["x"]))
+		{
+			if (playerBounds.overlaps(gift))
+			{
+				gift.x = targetPlayerBounds.x - 30;
+				gift.y = targetPlayerBounds.y;	
+				trace("player 2 send to player 1");
+			}		
+			
+		}
+		
 	}
 
 	/**
-	 * Function that is called once every frame.
+	 *  Function that is called once every frame.
 	 */
 	override public function update():Void
 	{
 		super.update();
 		
-		handleKeys();
-		
+			
 		FlxG.collide(ground, player1);
 		FlxG.collide(ground, player2);
 		
 		FlxG.collide(blocks, player1);
 		FlxG.collide(blocks, player2);
 		
-		FlxG.collide(giftBlock, player2, collideWithGift);
+		FlxG.collide(giftBlocks, ground);
+		
+		FlxG.collide(giftBlocks, player1);
+		FlxG.collide(giftBlocks, player2);
+		
+		FlxG.overlap(giftBlocks, player1.getBounds(), overlapsGiftBlocks);
+		FlxG.overlap(giftBlocks, player2.getBounds(), overlapsGiftBlocks);		
 		
 		FlxG.collide(player1, player2, collidePlayers);
+		
+		trace(player2.getBounds().overlaps(giftBlocks));
+		
+	//	trace(isCollidedWithGift);
+		handleKeys();
 		
 	}	
 }

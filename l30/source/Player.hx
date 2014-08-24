@@ -1,6 +1,7 @@
 package ;
 
 import flixel.FlxSprite;
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 
@@ -12,17 +13,26 @@ import flixel.util.FlxColor;
 class Player extends FlxSprite
 {
 	private var idle : Bool = false;
+	private var id : Int;
 	
 	private var inventory : Inventory = new Inventory();
+	
+	private var bounds : FlxSprite;
 
-	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
+	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int) 
 	{
 		super(X, Y);
 		this.makeGraphic(16, 16, color);
+		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
+		
+		
 		maxVelocity.set(100, 200);
 		acceleration.y = 200;
-		drag.x = maxVelocity.x * 4;
+		drag.x = maxVelocity.x * 4;	
 		
+		//offset.x = 1;
+		
+		this.id = id;		
 		this.idle = idle;		
 	}
 	
@@ -72,8 +82,15 @@ class Player extends FlxSprite
 			acceleration.x = 0;
 		}
 		
+		this.bounds.x = x - 1;
+		this.bounds.y = y - 1;
 		
 		super.update();
+	}
+	
+	public function getBounds() : FlxSprite
+	{
+		return this.bounds;
 	}
 	
 	public function getInventory() : Inventory

@@ -14,10 +14,14 @@ class GiftBlock extends FlxSprite
 	{
 		super(X, Y);
 		
-		solid = immovable = true;
+		//solid = immovable = true;
+		solid = true;
 		
 		makeGraphic(16, 16, FlxColor.YELLOW);
 		
+		maxVelocity.set(100, 200);
+		drag.x = maxVelocity.x * 3;	
+		//offset.x = -1;
 	}
 	
 }
