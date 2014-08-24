@@ -189,16 +189,15 @@ class PlayState extends FlxState
 			
 			//trace("target player: " + targetPlayer.id);
 			
-			trace("player x before : " + targetPlayer.x);
-			
+			trace("player x before : " + targetPlayer.x);			
 			trace("gift x before : " + gift.x);
 			
 			var xbkup = targetPlayer.x;
 			var ybkup = targetPlayer.y;
 			
-			//targetPlayer.y = targetPlayer.y - 50;
+			targetPlayer.y = targetPlayer.y - 50;
 			
-			gift.x = xbkup + 5;
+			gift.x = xbkup;
 			gift.y = ybkup;
 			
 			
@@ -246,19 +245,26 @@ class PlayState extends FlxState
 		FlxG.collide(blocks, player1);
 		FlxG.collide(blocks, player2);
 		
+		FlxG.collide(giftBlocks, blocks, function(gift : GiftBlock, block : Block) : Void {
+			trace("collided");
+			});
+		
 		FlxG.collide(giftBlocks, ground);
 		
 		FlxG.collide(giftBlocks, player1);
 		FlxG.collide(giftBlocks, player2);
 		
-		FlxG.overlap(giftBlocks, player1.getBounds(), overlapsGiftBlocksP1);
-		FlxG.overlap(giftBlocks, player2.getBounds(), overlapsGiftBlocksP2);		
 		
-		FlxG.collide(player1, player2, collidePlayers);		
+		
+		FlxG.collide(player1, player2, collidePlayers);
 		
 		FlxG.collide(giftBlocks, giftBlocks);
 		
-		FlxG.collide(giftBlocks, blocks);
+		
+		FlxG.overlap(giftBlocks, player1.getBounds(), overlapsGiftBlocksP1);
+		FlxG.overlap(giftBlocks, player2.getBounds(), overlapsGiftBlocksP2);		
+		
+		
 		
 		handleKeys();
 		
