@@ -39,7 +39,7 @@ class PlayState extends FlxState
 	private var textSize : Int = 100;
 	var pressXText : FlxText;
 	
-	var levelCount : Int = 2;
+	var levelCount : Int = 3;
 	var actualLevel : Int = 1;
 	
 
