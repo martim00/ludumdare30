@@ -39,6 +39,9 @@ class PlayState extends FlxState
 	private var textSize : Int = 100;
 	var pressXText : FlxText;
 	
+	var levelCount : Int = 2;
+	var actualLevel : Int = 1;
+	
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -52,7 +55,7 @@ class PlayState extends FlxState
 		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
 		add(ground);		
 		
-		loadLevel(3);
+		loadLevel(actualLevel);
 		
 		buildTexts();
 		
@@ -66,6 +69,8 @@ class PlayState extends FlxState
 	
 	private function loadLevel(level : Int)
 	{	
+		clearLevel();
+		
 		blocks = new FlxTypedGroup<Block>();
 		giftBlocks = new FlxTypedGroup<GiftBlock>();
 		
@@ -157,9 +162,17 @@ class PlayState extends FlxState
 	
 	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void
 	{
-		FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
-				FlxG.switchState(new EndState());
-			});	
+		if (actualLevel == this.levelCount)
+		{
+			FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
+					FlxG.switchState(new EndState());
+				});	
+		} else 
+		{
+			actualLevel += 1;
+			loadLevel(actualLevel);
+		}
+		
 	}
 	
 	function myCallback(Timer : FlxTimer) : Void
@@ -211,6 +224,35 @@ class PlayState extends FlxState
 	{
 		//trace("OVERLAPPING p2");
 		overlapsGiftBlocks(gift, player2, player1);
+	}
+	
+	function clearLevel():Void 
+	{
+		if (blocks != null)
+		{
+			blocks.forEach(function(obj : FlxSprite) : Void {
+				remove(obj);
+			});
+		}
+		
+		if (giftBlocks != null)
+		{
+			giftBlocks.forEach(function(obj : FlxSprite) : Void {
+				remove(obj);
+			});
+		}
+		
+		if (player1 != null)
+		{
+			remove(player1.getBounds());
+			remove(player1);
+		}
+			
+		if (player2 != null)
+		{	
+			remove(player2.getBounds());
+			remove(player2);
+		}
 	}
 
 	/**
