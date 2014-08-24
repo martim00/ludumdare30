@@ -16,8 +16,14 @@ class Block extends FlxSprite
 		
 		solid = immovable = true;
 		
-		makeGraphic(16, 16, color);
+		this.collisonXDrag = false;
 		
+		makeGraphic(16, 16, color);
+		//offset.x = -1;
+		//offset.y = -1;
+		
+		//this.drag.x = 1;
+	//	this.drag.y = 1;
 		
 	}
 	

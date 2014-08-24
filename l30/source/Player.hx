@@ -23,7 +23,6 @@ class Player extends FlxSprite
 	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int) 
 	{
 		super(X, Y);
-		//this.makeGraphic(16, 16, color);
 		if (id == 1) {
 			bounds = new FlxSprite(X, Y).makeGraphic(25, 39);
 		} else {
@@ -35,6 +34,9 @@ class Player extends FlxSprite
 		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;
 		jumpSound = FlxG.sound.load(AssetPaths.jump__wav);
+		
+		this.collisonXDrag = false;
+		bounds.collisonXDrag = false;
 		
 		this.id = id;		
 		this.idle = idle;
@@ -117,7 +119,13 @@ class Player extends FlxSprite
 	
 	function isTouchingFloor() : Bool
 	{	
-		return isTouching(FlxObject.FLOOR);
+		trace("is touching floor: " + isTouching(FlxObject.FLOOR));
+		trace("is touching right: " + isTouching(FlxObject.RIGHT));
+		
+		return isTouching(FlxObject.FLOOR) 
+		// pelo menos evitamos a escalada com isso
+			&& !isTouching(FlxObject.RIGHT) 
+			&& !isTouching(FlxObject.LEFT); 
 		//return velocity.y == 0;
 	}
 	
