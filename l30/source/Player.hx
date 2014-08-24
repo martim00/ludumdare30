@@ -24,11 +24,12 @@ class Player extends FlxSprite
 		this.makeGraphic(16, 16, color);
 		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
 		
-		
-		
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;	
+		
+		this.collisonXDrag = false;
+		bounds.collisonXDrag = false;
 		
 		this.id = id;		
 		this.idle = idle;		

@@ -36,8 +36,10 @@ class PlayState extends FlxState
 	
 	private var middleScreen = Std.int(FlxG.height / 2);	
 	
-	private var textSize : Int = 100;
+	var textSize : Int = 100;
 	var pressXText : FlxText;
+	
+	var isOnTransition : Bool = false;
 	
 	var levelCount : Int = 3;
 	var actualLevel : Int = 1;
@@ -102,8 +104,7 @@ class PlayState extends FlxState
 		}
 		
 		if (entityName == "player1")
-		{		
-			//player1 = new Player(16, FlxG.height - Constants.LEVEL_END_Y, FlxColor.BLUE, false, 1);
+		{				
 			player1 = new Player(x, y, FlxColor.BLUE, false, 1);
 			add(player1.getBounds());
 			add(player1);
@@ -118,9 +119,7 @@ class PlayState extends FlxState
 			add(player2);		
 			createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
 		}
-		
-		
-		
+	
 	}
 	
 	
@@ -175,19 +174,16 @@ class PlayState extends FlxState
 		
 	}
 	
-	function myCallback(Timer : FlxTimer) : Void
-	{
-		remove(pressXText);
-	}
 	
-	private var isOnTransition : Bool = false;
 	
 	function overlapsGiftBlocks(gift : GiftBlock, player : Player, targetPlayer : Player)
 	{
 		if (isOnTransition || player.isIdle())
 			return;
 			
-		new FlxTimer(3, myCallback);			
+		new FlxTimer(3, function(Timer : FlxTimer) : Void {
+			remove(pressXText);	
+		});			
 		
 		pressXText.x = player.x - textSize / 2;
 		pressXText.y = player.y - 50;
@@ -266,8 +262,13 @@ class PlayState extends FlxState
 		FlxG.collide(ground, player1);
 		FlxG.collide(ground, player2);
 		
-		FlxG.collide(blocks, player1);
-		FlxG.collide(blocks, player2);
+		FlxG.collide(player1, blocks);
+		FlxG.collide(player2, blocks);
+		
+		//FlxG.collide(player2, blocks);
+		
+		//FlxG.collide(blocks, player1);
+		//FlxG.collide(blocks, player2);
 		
 		FlxG.collide(giftBlocks, blocks);
 		
