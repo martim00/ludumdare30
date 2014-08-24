@@ -1,0 +1,12 @@
+<level width="1000" height="480">
+  <blocks>
+    <player1 id="0" x="48" y="448" />
+    <player2 id="2" x="928" y="448" />
+    <block id="1" x="160" y="448" />
+    <block id="3" x="160" y="432" />
+    <block id="4" x="160" y="416" />
+    <block id="5" x="448" y="448" />
+    <block id="6" x="448" y="432" />
+    <block id="7" x="448" y="416" />
+  </blocks>
+</level>

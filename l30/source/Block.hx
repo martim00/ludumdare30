@@ -17,6 +17,8 @@ class Block extends FlxSprite
 		solid = immovable = true;
 		
 		makeGraphic(16, 16, color);
+		
+		
 	}
 	
 }

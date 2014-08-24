@@ -1,6 +1,8 @@
 package ;
 
 import flixel.FlxSprite;
+import flixel.FlxObject;
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
@@ -14,17 +16,24 @@ class Player extends FlxSprite
 {
 	private var idle : Bool = false;
 	private var jumpSound : FlxSound;
-	private var inventory : Inventory = new Inventory();
+	public var id : Int;	
+	
+	private var bounds : FlxSprite;
 
-	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
+	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int) 
 	{
 		super(X, Y);
 		this.makeGraphic(16, 16, color);
-		maxVelocity.set(500, 200);
-		acceleration.y = 200;
+		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
+		
+		
+		
+		maxVelocity.set(100, 200);
+		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;
 		jumpSound = FlxG.sound.load(AssetPaths.jump__wav);
 		
+		this.id = id;		
 		this.idle = idle;		
 	}
 	
@@ -33,7 +42,10 @@ class Player extends FlxSprite
 		this.idle = !this.idle;
 	}
 	
-	
+	public function isIdle() : Bool
+	{
+		return this.idle;
+	}
 	override function update() 
 	{
 		if (!idle) 
@@ -75,18 +87,23 @@ class Player extends FlxSprite
 			acceleration.x = 0;
 		}
 		
+		this.bounds.x = x - 1;
+		this.bounds.y = y - 1;
+		
+		
 		
 		super.update();
 	}
 	
-	public function getInventory() : Inventory
+	public function getBounds() : FlxSprite
 	{
-		return this.inventory;
+		return this.bounds;
 	}
 	
-	function isTouchingFloor() 
+	function isTouchingFloor() : Bool
 	{	
-		return velocity.y == 0;
+		return isTouching(FlxObject.FLOOR);
+		//return velocity.y == 0;
 	}
 	
 	
