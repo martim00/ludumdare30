@@ -106,7 +106,7 @@ class Player extends FlxSprite
 		
 		return isTouching(FlxObject.FLOOR) 
 		// pelo menos evitamos a escalada com isso
-			&& !isTouching(FlxObject.RIGHT); 
+			&& !isTouching(FlxObject.RIGHT) 
 			&& !isTouching(FlxObject.LEFT); 
 		//return velocity.y == 0;
 	}
