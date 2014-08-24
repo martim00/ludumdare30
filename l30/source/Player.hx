@@ -23,18 +23,35 @@ class Player extends FlxSprite
 	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int) 
 	{
 		super(X, Y);
-		this.makeGraphic(16, 16, color);
-		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
-		
-		
-		
+		//this.makeGraphic(16, 16, color);
+		if (id == 1) {
+			bounds = new FlxSprite(X, Y).makeGraphic(25, 39);
+		} else {
+			bounds = new FlxSprite(X, Y).makeGraphic(25, 33);
+		}
+		bounds.set_alpha(0);
+				
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;
 		jumpSound = FlxG.sound.load(AssetPaths.jump__wav);
 		
 		this.id = id;		
-		this.idle = idle;		
+		this.idle = idle;
+		
+		loadAnimation();
+	}
+	
+	private function loadAnimation()
+	{
+		if (id == 1) {
+			loadGraphic(AssetPaths.husband_run__png, true, 23, 37);
+		} else {
+			loadGraphic(AssetPaths.wife_run__png, true, 23, 31);
+		}		
+		
+		animation.add("run", [0, 1, 2], 10);
+		animation.play("run");
 	}
 	
 	public function toggleIdle()
@@ -89,9 +106,7 @@ class Player extends FlxSprite
 		
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;
-		
-		
-		
+				
 		super.update();
 	}
 	
