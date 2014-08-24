@@ -218,11 +218,10 @@ class PlayState extends FlxState
 		FlxG.overlap(giftBlocks, player1.getBounds(), overlapsGiftBlocks);
 		FlxG.overlap(giftBlocks, player2.getBounds(), overlapsGiftBlocks);		
 		
-		FlxG.collide(player1, player2, collidePlayers);
+		FlxG.collide(player1, player2, collidePlayers);		
 		
-		trace(player2.getBounds().overlaps(giftBlocks));
+		FlxG.collide(giftBlocks, giftBlocks);
 		
-	//	trace(isCollidedWithGift);
 		handleKeys();
 		
 	}	
