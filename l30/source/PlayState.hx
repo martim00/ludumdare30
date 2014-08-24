@@ -27,9 +27,6 @@ class PlayState extends FlxState
 	private var player1 : Player;
 	private var player2 : Player;
 	
-	private var player1Inventory : InventoryView;
-	private var player2Inventory : InventoryView;
-	
 	private var ground : Ground;
 
 	private var blocks : FlxTypedGroup<Block>;
@@ -188,12 +185,33 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyJustPressed(["x"]))
 		{
 			//gift.setIsOnTransition(true);
-			isOnTransition = true;
+			isOnTransition = true;	
 			
-			trace("target player: " + targetPlayer.id);
+			//trace("target player: " + targetPlayer.id);
 			
-			gift.x = targetPlayer.x;
-			gift.y = targetPlayer.y - 50;
+			trace("player x before : " + targetPlayer.x);
+			
+			trace("gift x before : " + gift.x);
+			
+			var xbkup = targetPlayer.x;
+			var ybkup = targetPlayer.y;
+			
+			//targetPlayer.y = targetPlayer.y - 50;
+			
+			gift.x = xbkup + 5;
+			gift.y = ybkup;
+			
+			
+			//targetPlayer.y = targetPlayer.y - gift.height;
+	//		gift.centerOffsets();
+		//	targetPlayer.centerOffsets();
+			//gift.centerOrigin();
+			//targetPlayer.centerOrigin();
+			
+			//targetPlayer.x = gift.x;
+			
+			trace("player x after: " + targetPlayer.x);
+			trace("gift x after : " + gift.x);
 			
 			new FlxTimer(1, function(obj: FlxTimer) : Void {
 				isOnTransition = false;
@@ -204,13 +222,13 @@ class PlayState extends FlxState
 	
 	function overlapsGiftBlocksP1(gift : GiftBlock, p1Bounds : FlxObject)
 	{
-		trace("OVERLAPPING p1");
+		//trace("OVERLAPPING p1");
 		overlapsGiftBlocks(gift, player1, player2);
 	}
 	
 	function overlapsGiftBlocksP2(gift : GiftBlock, p2Bounds : FlxObject)
 	{
-		trace("OVERLAPPING p2");
+		//trace("OVERLAPPING p2");
 		overlapsGiftBlocks(gift, player2, player1);
 	}
 

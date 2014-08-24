@@ -25,6 +25,7 @@ class Player extends FlxSprite
 		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
 		
 		
+		
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;	
@@ -84,6 +85,8 @@ class Player extends FlxSprite
 		
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;
+		
+		
 		
 		super.update();
 	}
