@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import flixel.FlxObject;
 import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
 
@@ -14,6 +15,7 @@ import flixel.util.FlxColor;
 class Player extends FlxSprite
 {
 	private var idle : Bool = false;
+	private var jumpSound : FlxSound;
 	public var id : Int;	
 	
 	private var bounds : FlxSprite;
@@ -26,7 +28,8 @@ class Player extends FlxSprite
 		
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
-		drag.x = maxVelocity.x * 4;	
+		drag.x = maxVelocity.x * 4;
+		jumpSound = FlxG.sound.load(AssetPaths.jump__wav);
 		
 		this.collisonXDrag = false;
 		bounds.collisonXDrag = false;
@@ -63,6 +66,7 @@ class Player extends FlxSprite
 			
 			if (FlxG.keys.justPressed.UP && isTouchingFloor())
 			{
+				jumpSound.play();
 				velocity.y -= maxVelocity.y / 1.5;
 			}
 			
@@ -82,7 +86,7 @@ class Player extends FlxSprite
 		} else {
 			velocity.x = 0;
 			acceleration.x = 0;
-		}		
+		}
 		
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;
@@ -96,7 +100,7 @@ class Player extends FlxSprite
 	{
 		return this.bounds;
 	}
-		
+	
 	function isTouchingFloor() : Bool
 	{	
 		return isTouching(FlxObject.FLOOR);

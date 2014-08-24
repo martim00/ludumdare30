@@ -28,15 +28,13 @@ class PlayState extends FlxState
 	private var player2 : Player;
 	
 	private var ground : Ground;
-
-	private var blocks : FlxTypedGroup<Block>;
-	
-
+	private var blocks : FlxTypedGroup<Block>;	
 	private var giftBlocks : FlxTypedGroup<GiftBlock>;
 	
-	private var middleScreen = Std.int(FlxG.height / 2);	
-	
-	var textSize : Int = 100;
+	private var middleScreen = Std.int(FlxG.height / 2);
+
+	private var textSize : Int = 100;
+
 	var pressXText : FlxText;
 	
 	var isOnTransition : Bool = false;
@@ -50,12 +48,18 @@ class PlayState extends FlxState
 	 */
 	override public function create():Void
 	{
+		#if flash //flash only works with mp3 files
+		FlxG.sound.playMusic(AssetPaths.play_state_song__mp3, 1, true);
+		#else //for martim that compiles for neko
+		FlxG.sound.playMusic(AssetPaths.play_state_song__ogg, 1, true);
+		#end
+		
 		FlxG.mouse.visible = false;
 		
 		FlxG.cameras.bgColor = FlxColor.WHITE;
 		
 		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
-		add(ground);		
+		add(ground);
 		
 		loadLevel(actualLevel);
 		
@@ -63,9 +67,9 @@ class PlayState extends FlxState
 		
 		super.create();
 	}
-	
+		
 	private function buildTexts() : Void
-	{
+	{	
 		pressXText = new FlxText(0, 0, textSize, "Press X to send to your couple!");
 	}
 	
@@ -73,7 +77,7 @@ class PlayState extends FlxState
 	{	
 		clearLevel();
 		
-		blocks = new FlxTypedGroup<Block>();
+		blocks = new FlxTypedGroup<Block>();		
 		giftBlocks = new FlxTypedGroup<GiftBlock>();
 		
 		var levelpath = "assets/data/level" + level + ".oel";	
@@ -101,7 +105,7 @@ class PlayState extends FlxState
 			var gift = new GiftBlock(x, y);
 			giftBlocks.add(gift);
 			add(gift);
-		}
+		}		
 		
 		if (entityName == "player1")
 		{				
@@ -118,8 +122,8 @@ class PlayState extends FlxState
 			add(player2.getBounds());
 			add(player2);		
 			createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
-		}
-	
+		}	
+
 	}
 	
 	
@@ -163,18 +167,17 @@ class PlayState extends FlxState
 	{
 		if (actualLevel == this.levelCount)
 		{
-			FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
-					FlxG.switchState(new EndState());
-				});	
+		FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
+				FlxG.switchState(new EndState());
+			});	
 		} else 
 		{
 			actualLevel += 1;
 			loadLevel(actualLevel);
-		}
-		
 	}
 	
-	
+	}
+
 	
 	function overlapsGiftBlocks(gift : GiftBlock, player : Player, targetPlayer : Player)
 	{
@@ -207,9 +210,9 @@ class PlayState extends FlxState
 			new FlxTimer(1, function(obj: FlxTimer) : Void {
 				isOnTransition = false;				
 			});
-		}
 	}
-	
+	}
+
 	function overlapsGiftBlocksP1(gift : GiftBlock, p1Bounds : FlxObject)
 	{
 		//trace("OVERLAPPING p1");
@@ -252,13 +255,13 @@ class PlayState extends FlxState
 	}
 
 	/**
-	 *  Function that is called once every frame.
+	 * Function that is called once every frame.
 	 */
 	override public function update():Void
 	{
 		super.update();
 		
-			
+		
 		FlxG.collide(ground, player1);
 		FlxG.collide(ground, player2);
 		
@@ -279,8 +282,7 @@ class PlayState extends FlxState
 		
 		
 		
-		FlxG.collide(player1, player2, collidePlayers);
-		
+		FlxG.collide(player1, player2, collidePlayers);		
 		FlxG.collide(giftBlocks, giftBlocks);
 		
 		
