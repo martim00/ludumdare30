@@ -24,7 +24,8 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		this.makeGraphic(16, 16, color);
-		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);		
+		bounds = new FlxSprite(X, Y).makeGraphic(18, 18);
+		bounds.set_alpha(0);
 		
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
