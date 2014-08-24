@@ -31,7 +31,7 @@ class PlayState extends FlxState
 	private var blocks : FlxTypedGroup<Block>;
 	
 	private var giftBlock : GiftBlock;
-	
+		
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -131,11 +131,6 @@ class PlayState extends FlxState
 	
 	function collideWithGift(gift : FlxObject, player : FlxObject) : Void
 	{
-		var popup = new InputPopup();
-		//add(popup);
-		popup.x = 100;
-		popup.y = 100;
-		add(popup);
 	}
 
 	/**
