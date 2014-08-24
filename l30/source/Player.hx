@@ -105,7 +105,9 @@ class Player extends FlxSprite
 		trace("is touching right: " + isTouching(FlxObject.RIGHT));
 		
 		return isTouching(FlxObject.FLOOR) 
-			&& !isTouching(FlxObject.RIGHT); // pelo menos evitamos a escalada com isso
+		// pelo menos evitamos a escalada com isso
+			&& !isTouching(FlxObject.RIGHT); 
+			&& !isTouching(FlxObject.LEFT); 
 		//return velocity.y == 0;
 	}
 	
