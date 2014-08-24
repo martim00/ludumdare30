@@ -24,4 +24,20 @@ class GiftBlock extends FlxSprite
 		//offset.x = -1;
 	}
 	
+	override function update() : Void
+	{
+		// clamp...
+		if (x >= Constants.LEVEL_WIDTH - this.width)
+		{
+			x = Constants.LEVEL_WIDTH - this.width;
+		}
+		
+		if (x < Constants.LEVEL_BEGIN_X )
+		{
+			x = Constants.LEVEL_BEGIN_X ;
+		}
+			
+		super.update();
+	}
+	
 }
