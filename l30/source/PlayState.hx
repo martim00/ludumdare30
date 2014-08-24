@@ -34,8 +34,8 @@ class PlayState extends FlxState
 
 	private var blocks : FlxTypedGroup<Block>;
 	
+
 	private var giftBlocks : FlxTypedGroup<GiftBlock>;
-	//private var giftBlock : ;
 	
 	private var middleScreen = Std.int(FlxG.height / 2);	
 	
