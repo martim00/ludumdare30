@@ -5,15 +5,15 @@
   <BackgroundColor A="255" R="125" G="160" B="255" />
   <GridColor A="255" R="255" G="240" B="90" />
   <LevelDefaultSize>
-    <Width>800</Width>
+    <Width>5000</Width>
     <Height>480</Height>
   </LevelDefaultSize>
   <LevelMinimumSize>
-    <Width>800</Width>
+    <Width>5000</Width>
     <Height>480</Height>
   </LevelMinimumSize>
   <LevelMaximumSize>
-    <Width>800</Width>
+    <Width>5000</Width>
     <Height>480</Height>
   </LevelMaximumSize>
   <Filename>C:\Users\Aniceto\workspace\ludumdare30\l30\levels.oep</Filename>
