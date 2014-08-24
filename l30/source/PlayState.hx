@@ -14,6 +14,8 @@ import flixel.FlxCamera;
 import flixel.util.FlxPoint;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.addons.ui.FlxUIPopup;
+import flixel.util.FlxRect;
+import flixel.util.FlxTimer;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -30,11 +32,8 @@ class PlayState extends FlxState
 	private var player2Inventory : InventoryView;
 	
 	private var ground : Ground;
-
-	private var blocks : FlxTypedGroup<Block>;
-	
-	private var giftBlock : GiftBlock;
-		
+	private var blocks : FlxTypedGroup<Block>;	
+	private var giftBlock : GiftBlock;		
 	private var middleScreen = Std.int(FlxG.height / 2);
 
 	/**
@@ -42,6 +41,12 @@ class PlayState extends FlxState
 	 */
 	override public function create():Void
 	{
+		#if flash //flash only works with mp3 files
+		FlxG.sound.playMusic(AssetPaths.play_state_song__mp3, 1, true);
+		#else //for martim that compiles for neko
+		FlxG.sound.playMusic(AssetPaths.play_state_song__ogg, 1, true);
+		#end
+		
 		FlxG.mouse.visible = false;
 		
 		FlxG.cameras.bgColor = FlxColor.WHITE;
@@ -68,7 +73,7 @@ class PlayState extends FlxState
 		
 		super.create();
 	}
-	
+		
 	private function loadLevel()
 	{	
 		blocks = new FlxTypedGroup<Block>();		
@@ -93,10 +98,7 @@ class PlayState extends FlxState
 			var gift = new GiftBlock(x, y);
 			//blocks.add(block);
 			add(gift);
-		}
-		
-		
-		
+		}		
 	}
 	
 	
@@ -143,16 +145,9 @@ class PlayState extends FlxState
 	}
 	
 	function collideWithGift(gift : FlxObject, player : FlxObject) : Void
-	{
-		//var popup = new InputPopup();
-		//popup.x = 100;
-		//popup.y = 100;
-		//add(popup);
-		
+	{		
 		gift.x = player1.x - 10;
 		gift.y = player1.y;
-		
-		
 		//player1.receiveGift(gift);
 	}
 
@@ -173,7 +168,6 @@ class PlayState extends FlxState
 		
 		FlxG.collide(giftBlock, player2, collideWithGift);
 		
-		FlxG.collide(player1, player2, collidePlayers);
-		
+		FlxG.collide(player1, player2, collidePlayers);		
 	}	
 }

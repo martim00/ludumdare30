@@ -19,7 +19,7 @@ class WeddingState extends FlxState
 	private function onEndState(Timer:FlxTimer): Void
 	{
 		FlxG.camera.fade(FlxColor.WHITE,.33, false, function() {
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new MenuState());
 			});	
 	}	
 }

@@ -2,6 +2,7 @@ package ;
 
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
 
@@ -12,16 +13,17 @@ import flixel.util.FlxColor;
 class Player extends FlxSprite
 {
 	private var idle : Bool = false;
-	
+	private var jumpSound : FlxSound;
 	private var inventory : Inventory = new Inventory();
 
 	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool) 
 	{
 		super(X, Y);
 		this.makeGraphic(16, 16, color);
-		maxVelocity.set(100, 200);
+		maxVelocity.set(500, 200);
 		acceleration.y = 200;
 		drag.x = maxVelocity.x * 4;
+		jumpSound = FlxG.sound.load(AssetPaths.jump__wav);
 		
 		this.idle = idle;		
 	}
@@ -51,6 +53,7 @@ class Player extends FlxSprite
 			
 			if (FlxG.keys.justPressed.UP && isTouchingFloor())
 			{
+				jumpSound.play();
 				velocity.y -= maxVelocity.y / 1.5;
 			}
 			
