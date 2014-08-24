@@ -53,13 +53,13 @@ class PlayState extends FlxState
 		player2 = new Player(Constants.LEVEL_WIDTH - 32, FlxG.height - 32, FlxColor.RED, false);
 		add(player2);
 		
-		ground = new Ground(16, FlxG.height - 16);
+		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
 		add(ground);
 		
-		player1Inventory = new InventoryView(0, 0, player1.getInventory());
+		/*player1Inventory = new InventoryView(0, 0, player1.getInventory());
 		add(player1Inventory);
 		player2Inventory = new InventoryView(0, middleScreen, player2.getInventory());
-		add(player2Inventory);
+		add(player2Inventory);*/
 		
 		createCamera(0, 0xFFFFCCCC, player1);
 		createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
@@ -103,13 +103,13 @@ class PlayState extends FlxState
 	private function createCamera(Y:Int, Color:Int, Follow:FlxSprite):Void
 	{
 		//var camera:FlxCamera = new FlxCamera(0, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
-		var camera:FlxCamera = new FlxCamera(16, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
+		var camera:FlxCamera = new FlxCamera(Constants.LEVEL_BEGIN_X, Y, Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		//var camera:FlxCamera = new FlxCamera(0, Y, FlxG.width, Std.int(FlxG.height / 2););
 		
 		// isso funciona
 		//camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		
-		camera.setBounds(16, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, Std.int(FlxG.height / 2));
+		camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, Std.int(FlxG.height / 2));
 		camera.bgColor = Color;
 		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
 		FlxG.cameras.add(camera);
