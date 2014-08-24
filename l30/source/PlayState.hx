@@ -184,37 +184,19 @@ class PlayState extends FlxState
 		//trace("OVERLAPPING");
 		if (FlxG.keys.anyJustPressed(["x"]))
 		{
-			//gift.setIsOnTransition(true);
 			isOnTransition = true;	
 			
-			//trace("target player: " + targetPlayer.id);
-			
-			trace("player x before : " + targetPlayer.x);			
-			trace("gift x before : " + gift.x);
 			
 			var xbkup = targetPlayer.x;
 			var ybkup = targetPlayer.y;
 			
-			targetPlayer.y = targetPlayer.y - 50;
+			targetPlayer.y = targetPlayer.y - gift.height;
 			
 			gift.x = xbkup;
 			gift.y = ybkup;
 			
-			
-			//targetPlayer.y = targetPlayer.y - gift.height;
-	//		gift.centerOffsets();
-		//	targetPlayer.centerOffsets();
-			//gift.centerOrigin();
-			//targetPlayer.centerOrigin();
-			
-			//targetPlayer.x = gift.x;
-			
-			trace("player x after: " + targetPlayer.x);
-			trace("gift x after : " + gift.x);
-			
 			new FlxTimer(1, function(obj: FlxTimer) : Void {
-				isOnTransition = false;
-				//gift.setIsOnTransition(false);
+				isOnTransition = false;				
 			});
 		}
 	}
@@ -245,9 +227,7 @@ class PlayState extends FlxState
 		FlxG.collide(blocks, player1);
 		FlxG.collide(blocks, player2);
 		
-		FlxG.collide(giftBlocks, blocks, function(gift : GiftBlock, block : Block) : Void {
-			trace("collided");
-			});
+		FlxG.collide(giftBlocks, blocks);
 		
 		FlxG.collide(giftBlocks, ground);
 		
