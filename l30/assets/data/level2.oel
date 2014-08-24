@@ -17,5 +17,7 @@
     <giftBlock id="13" x="4864" y="448" />
     <giftBlock id="15" x="4640" y="448" />
     <giftBlock id="16" x="336" y="448" />
+    <player1 id="17" x="400" y="448" />
+    <player2 id="18" x="4752" y="448" />
   </blocks>
 </level>

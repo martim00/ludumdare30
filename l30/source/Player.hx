@@ -14,7 +14,7 @@ import flixel.util.FlxColor;
 class Player extends FlxSprite
 {
 	private var idle : Bool = false;
-	private var id : Int;	
+	public var id : Int;	
 	
 	private var bounds : FlxSprite;
 
@@ -26,7 +26,7 @@ class Player extends FlxSprite
 		
 		
 		maxVelocity.set(100, 200);
-		acceleration.y = 200;
+		acceleration.y = Constants.GRAVITY;
 		drag.x = maxVelocity.x * 4;	
 		
 		this.id = id;		
@@ -38,7 +38,10 @@ class Player extends FlxSprite
 		this.idle = !this.idle;
 	}
 	
-	
+	public function isIdle() : Bool
+	{
+		return this.idle;
+	}
 	override function update() 
 	{
 		if (!idle) 
@@ -77,10 +80,7 @@ class Player extends FlxSprite
 		} else {
 			velocity.x = 0;
 			acceleration.x = 0;
-		}
-		
-		//trace(velocity.y);
-		trace("bounds velocity : " + bounds.velocity.y);
+		}		
 		
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;

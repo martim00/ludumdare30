@@ -17,15 +17,28 @@ class GiftBlock extends FlxSprite
 		//solid = immovable = true;
 		solid = true;
 		
+		acceleration.y = Constants.GRAVITY;
+		
 		makeGraphic(16, 16, FlxColor.YELLOW);
 		
 		maxVelocity.set(100, 200);
 		drag.x = maxVelocity.x * 3;	
-		//offset.x = -1;
+	}
+	
+	private var onTransition : Bool = false;
+	public function setIsOnTransition(onTransition : Bool): Void
+	{
+		this.onTransition = onTransition;
+	}
+	
+	public function isOnTransition() : Bool
+	{
+		return this.onTransition;
 	}
 	
 	override function update() : Void
 	{
+		
 		// clamp...
 		if (x >= Constants.LEVEL_WIDTH - this.width)
 		{
