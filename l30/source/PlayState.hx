@@ -167,6 +167,11 @@ class PlayState extends FlxState
 			player1.toggleIdle();
 			player2.toggleIdle();
 		}		
+		
+		if (FlxG.keys.anyJustPressed(["R"]))
+		{
+			this.loadLevel(actualLevel);			
+		}		
 	}
 	
 	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void
