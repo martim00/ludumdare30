@@ -19,7 +19,8 @@ class GiftBlock extends FlxSprite
 		solid = true;
 		acceleration.y = Constants.GRAVITY;
 		
-		makeGraphic(16, 16, FlxColor.YELLOW);	
+		//makeGraphic(16, 16, FlxColor.YELLOW);	
+		loadGraphic(AssetPaths.gift__png);
 		
 		maxVelocity.set(100, 200);
 		drag.x = maxVelocity.x * 3;	

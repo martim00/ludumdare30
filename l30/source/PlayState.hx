@@ -53,20 +53,12 @@ class PlayState extends FlxState
 	 */
 	override public function create():Void
 	{
-		#if flash //flash only works with mp3 files
-		FlxG.sound.playMusic(AssetPaths.play_state_song__mp3, 1, true);
-		#else //for martim that compiles for neko
-		FlxG.sound.playMusic(AssetPaths.play_state_song__ogg, 1, true);
-		#end
-		
 		FlxG.mouse.visible = false;
 		
 		FlxG.cameras.bgColor = FlxColor.WHITE;
 			
-		background = new Background(Constants.LEVEL_BEGIN_X, 0);
-		add(background);
-		
-				
+		background = new Background(Constants.LEVEL_BEGIN_X, 240);
+		add(background);				
 		
 		loadLevel(actualLevel);
 		
@@ -190,8 +182,7 @@ class PlayState extends FlxState
 		{
 			actualLevel += 1;
 			loadLevel(actualLevel);
-	}
-	
+		}
 	}
 
 	

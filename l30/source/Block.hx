@@ -18,12 +18,8 @@ class Block extends FlxSprite
 		
 		this.collisonXDrag = false;
 		
-		makeGraphic(16, 16, color);
-		//offset.x = -1;
-		//offset.y = -1;
-		
-		//this.drag.x = 1;
-	//	this.drag.y = 1;
+		//makeGraphic(16, 16, color);
+		loadGraphic(AssetPaths.block__png);
 		
 	}
 	

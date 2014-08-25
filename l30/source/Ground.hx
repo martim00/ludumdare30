@@ -17,8 +17,8 @@ class Ground extends FlxSprite
 		
 		solid = immovable = true;
 		
-		//makeGraphic(FlxG.width, 16, FlxColor.GREEN);
-		makeGraphic(width, 16, FlxColor.GREEN);
+		//makeGraphic(width, 16, FlxColor.GREEN);
+		loadGraphic(AssetPaths.floor__png);
 	}
 	
 }

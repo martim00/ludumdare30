@@ -13,6 +13,12 @@ class WeddingState extends FlxState
 	
 	override public function create(): Void
 	{
+		#if flash //flash only works with mp3 files
+		FlxG.sound.playMusic(AssetPaths.play_state_song__mp3, 1, true);
+		#else //for martim that compiles for neko
+		FlxG.sound.playMusic(AssetPaths.play_state_song__ogg, 1, true);
+		#end
+				
 		var target:FlxSprite = new FlxSprite(0, 0, AssetPaths.wedding__png);		
 		glitch = new FlxGlitchSprite(target);
 		add(glitch);

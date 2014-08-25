@@ -79,6 +79,6 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	
 	<!--------------------------------CUSTOM---------------------------------------->
-	
+	<haxedef name="FLX_NO_SPLASH"/>
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 </project>
