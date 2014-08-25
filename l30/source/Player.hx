@@ -46,14 +46,15 @@ class Player extends FlxSprite
 	
 	private function loadAnimation()
 	{
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		
 		if (id == 1) {
 			loadGraphic(AssetPaths.husband_run__png, true, 23, 37);
 		} else {
 			loadGraphic(AssetPaths.wife_run__png, true, 23, 31);
+			facing = FlxObject.LEFT;
 		}		
-		
-		setFacingFlip(FlxObject.LEFT, true, false);
-		setFacingFlip(FlxObject.RIGHT, false, false);
 		
 		animation.add("run", [0, 1, 2], 10);
 		animation.add("stopped", [1], 10);
