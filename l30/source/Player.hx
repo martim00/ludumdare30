@@ -52,7 +52,11 @@ class Player extends FlxSprite
 			loadGraphic(AssetPaths.wife_run__png, true, 23, 31);
 		}		
 		
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		
 		animation.add("run", [0, 1, 2], 10);
+		animation.add("stopped", [1], 10);
 		animation.play("run");
 	}
 	
@@ -74,11 +78,13 @@ class Player extends FlxSprite
 			
 			if (FlxG.keys.pressed.LEFT)
 			{
+				facing = FlxObject.LEFT;
 				acceleration.x = -maxVelocity.x * 4;
 			}
 			
 			if (FlxG.keys.pressed.RIGHT)
 			{
+				facing = FlxObject.RIGHT;
 				acceleration.x = maxVelocity.x * 4;
 			}	
 			
@@ -106,10 +112,21 @@ class Player extends FlxSprite
 			acceleration.x = 0;
 		}
 		
+		setAnimationType();
+		
 		this.bounds.x = x - 1;
 		this.bounds.y = y - 1;
 				
 		super.update();
+	}
+	
+	private function setAnimationType()
+	{
+		if (velocity.x != 0 && velocity.y == 0) {
+			animation.play("run");
+		} else {
+			animation.play("stopped");
+		}
 	}
 	
 	public function getBounds() : FlxSprite
