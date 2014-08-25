@@ -1,26 +1,18 @@
-<level width="1000" height="480">
+<level width="1200" height="480">
   <blocks>
-    <block id="1" x="160" y="448" />
-    <block id="3" x="160" y="432" />
     <block id="5" x="576" y="432" />
     <block id="6" x="576" y="416" />
     <player2 id="2" x="848" y="400" />
     <player1 id="0" x="80" y="400" />
-    <block id="4" x="160" y="416" />
     <block id="7" x="576" y="448" />
-    <giftBlock id="8" x="128" y="448" />
-    <block id="9" x="352" y="384" />
-    <block id="10" x="352" y="448" />
-    <block id="11" x="352" y="432" />
-    <block id="12" x="352" y="416" />
-    <block id="13" x="352" y="400" />
-    <block id="14" x="352" y="368" />
-    <block id="17" x="416" y="384" />
-    <block id="18" x="464" y="416" />
     <giftBlock id="15" x="256" y="448" />
     <block id="16" x="768" y="448" />
     <block id="19" x="768" y="432" />
-    <block id="20" x="768" y="416" />
     <giftBlock id="21" x="256" y="432" />
+    <block id="9" x="576" y="400" />
+    <block id="10" x="576" y="384" />
+    <block id="11" x="576" y="368" />
+    <block id="3" x="656" y="432" />
+    <block id="1" x="656" y="448" />
   </blocks>
 </level>
