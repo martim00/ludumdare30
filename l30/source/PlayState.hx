@@ -41,7 +41,7 @@ class PlayState extends FlxState
 	
 	var isOnTransition : Bool = false;
 	
-	var levelCount : Int = 3;
+	var levelCount : Int = 4;
 	var actualLevel : Int = 1;
 	
 	
