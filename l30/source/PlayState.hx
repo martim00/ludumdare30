@@ -159,8 +159,7 @@ class PlayState extends FlxState
 			trace("space clicked");
 			player1.toggleIdle();
 			player2.toggleIdle();
-		}
-		
+		}		
 	}
 	
 	function collidePlayers(p1 : FlxObject, p2 : FlxObject) : Void

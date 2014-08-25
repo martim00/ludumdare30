@@ -70,6 +70,7 @@ class Player extends FlxSprite
 	{
 		return this.idle;
 	}
+	
 	override function update() 
 	{
 		if (!idle) 
@@ -94,8 +95,7 @@ class Player extends FlxSprite
 				jumpSound.play();
 				velocity.y -= maxVelocity.y / 1.5;
 			}
-			
-			
+				
 			// clamp...
 			if (x >= Constants.LEVEL_WIDTH - this.width)
 			{
@@ -120,7 +120,7 @@ class Player extends FlxSprite
 				
 		super.update();
 	}
-	
+		
 	private function setAnimationType()
 	{
 		if (velocity.x != 0 && velocity.y == 0) {

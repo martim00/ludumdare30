@@ -22,21 +22,20 @@ class MenuState extends FlxState
 	override public function create():Void
 	{
 		// Set a background color
-		FlxG.cameras.bgColor = 0xff131c1b;
+		FlxG.camera.bgColor = 0xFFCCCCFF;
 		
 		var square:FlxSprite = new FlxSprite(10, 10);
 		square.makeGraphic(FlxG.width - 20, FlxG.height - 76, 0xff333333);
 		
 		gamePurpose = new FlxTypeText(15, 10, FlxG.width - 30, "You were separated and now you need to stay together.\n\n'Space' switch between the players\n'X' send a gift to the other\nArrow keys to move\n\n\nPress 'Enter' to start...", 16, true);
 		
-		gamePurpose.delay = 0.05;
+		gamePurpose.delay = 0.03;
 		gamePurpose.showCursor = true;
 		gamePurpose.cursorBlinkSpeed = 1.0;
 		gamePurpose.autoErase = true;
 		gamePurpose.waitTime = 2.0;
 		gamePurpose.setTypingVariation(0.75, true);
-		//gamePurpose.useDefaultSound = true;
-		gamePurpose.color = 0x8811EE11;
+		gamePurpose.color = 0xFF802896;
 		gamePurpose.skipKeys = ["SPACE"];
 						
 		add(gamePurpose);
