@@ -1,7 +1,7 @@
 <level width="1000" height="480">
   <blocks>
     <player1 id="0" x="128" y="416" />
-    <player2 id="1" x="848" y="416" />
+    <player2 id="1" x="832" y="416" />
     <block id="2" x="208" y="448" />
     <block id="3" x="208" y="432" />
     <block id="4" x="208" y="400" />

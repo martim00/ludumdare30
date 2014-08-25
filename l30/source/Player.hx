@@ -19,8 +19,10 @@ class Player extends FlxSprite
 	public var id : Int;	
 	
 	private var bounds : FlxSprite;
+	
+	private var levelWidth : Int;
 
-	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int) 
+	public function new(X:Float=0, Y:Float=0, color : Int, idle : Bool, id : Int, levelWidth : Int) 
 	{
 		super(X, Y);
 		if (id == 1) {
@@ -29,6 +31,8 @@ class Player extends FlxSprite
 			bounds = new FlxSprite(X, Y).makeGraphic(25, 33);
 		}
 		bounds.set_alpha(0);
+		
+		this.levelWidth = levelWidth;
 				
 		maxVelocity.set(100, 200);
 		acceleration.y = Constants.GRAVITY;
@@ -97,9 +101,9 @@ class Player extends FlxSprite
 			}
 				
 			// clamp...
-			if (x >= Constants.LEVEL_WIDTH - this.width)
+			if (x >= levelWidth - this.width)
 			{
-				x = Constants.LEVEL_WIDTH - this.width;
+				x = levelWidth - this.width;
 			}
 			
 			if (x < Constants.LEVEL_BEGIN_X )

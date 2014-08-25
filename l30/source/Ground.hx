@@ -11,14 +11,14 @@ import flixel.FlxG;
 class Ground extends FlxSprite
 {
 
-	public function new(X:Float=0, Y:Float=0) 
+	public function new(X:Float=0, Y:Float=0, width : Int) 
 	{
 		super(X, Y);
 		
 		solid = immovable = true;
 		
 		//makeGraphic(FlxG.width, 16, FlxColor.GREEN);
-		makeGraphic(Constants.LEVEL_WIDTH, 16, FlxColor.GREEN);
+		makeGraphic(width, 16, FlxColor.GREEN);
 	}
 	
 }

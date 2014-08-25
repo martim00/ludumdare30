@@ -36,13 +36,16 @@ class PlayState extends FlxState
 	private var middleScreen = Std.int(FlxG.height / 2);
 
 	private var textSize : Int = 100;
+	
+	private var levelWidth : Int = 800;
 
 	var pressXText : FlxText;
 	
 	var isOnTransition : Bool = false;
 	
-	var levelCount : Int = 3;
+	var levelCount : Int = 4;
 	var actualLevel : Int = 1;
+	
 	
 
 	/**
@@ -63,9 +66,8 @@ class PlayState extends FlxState
 		background = new Background(Constants.LEVEL_BEGIN_X, 0);
 		add(background);
 		
-		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
-		add(ground);
 				
+		
 		loadLevel(actualLevel);
 		
 		buildTexts();
@@ -87,8 +89,13 @@ class PlayState extends FlxState
 		
 		var levelpath = "assets/data/level" + level + ".oel";	
 		
-		//loader = new FlxOgmoLoader(AssetPaths.level2__oel);
+		//loader = new FlxOgmoLoader(AssetPaths.level4__oel);
 		loader = new FlxOgmoLoader(levelpath);
+		
+		levelWidth = loader.width;
+		
+		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16, levelWidth);
+		add(ground);
 		
 		loader.loadEntities(placeEntities, "blocks");
 	}
@@ -107,14 +114,14 @@ class PlayState extends FlxState
 		
 		if (entityName == "giftBlock")
 		{		
-			var gift = new GiftBlock(x, y);
+			var gift = new GiftBlock(x, y, levelWidth);
 			giftBlocks.add(gift);
 			add(gift);
 		}		
 		
 		if (entityName == "player1")
 		{				
-			player1 = new Player(x, y, FlxColor.BLUE, false, 1);
+			player1 = new Player(x, y, FlxColor.BLUE, false, 1, levelWidth);
 			add(player1.getBounds());
 			add(player1);
 			createCamera(0, 0xFFFFCCCC, player1);
@@ -123,7 +130,7 @@ class PlayState extends FlxState
 		
 		if (entityName == "player2")
 		{				
-			player2 = new Player(x, y, FlxColor.RED, true, 2);
+			player2 = new Player(x, y, FlxColor.RED, true, 2, levelWidth);
 			add(player2.getBounds());
 			add(player2);		
 			createCamera(Std.int(FlxG.height / 2), 0xFFCCCCFF, player2);
@@ -141,7 +148,7 @@ class PlayState extends FlxState
 		// isso funciona
 		//camera.setBounds(16, Std.int(FlxG.height / 2), Std.int(FlxG.width), Std.int(FlxG.height / 2));
 		
-		camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, Std.int(FlxG.height / 2));
+		camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), levelWidth, Std.int(FlxG.height / 2));
 	//	camera.setBounds(Constants.LEVEL_BEGIN_X, Std.int(FlxG.height / 2), Constants.LEVEL_WIDTH, FlxG.height - Constants.LEVEL_END_Y - 32);
 		camera.bgColor = Color;
 		camera.follow(Follow, FlxCamera.STYLE_PLATFORMER, new FlxPoint(0, Std.int(FlxG.height / 2)));
@@ -164,6 +171,11 @@ class PlayState extends FlxState
 			trace("space clicked");
 			player1.toggleIdle();
 			player2.toggleIdle();
+		}		
+		
+		if (FlxG.keys.anyJustPressed(["R"]))
+		{
+			this.loadLevel(actualLevel);			
 		}		
 	}
 	
