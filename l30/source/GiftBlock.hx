@@ -9,8 +9,9 @@ import flixel.util.FlxColor;
  */
 class GiftBlock extends FlxSprite
 {
-
-	public function new(X:Float=0, Y:Float=0) 
+	private var levelWidth : Int;
+	
+	public function new(X:Float=0, Y:Float=0, levelWidth : Int) 
 	{
 		super(X, Y);
 		
@@ -22,15 +23,17 @@ class GiftBlock extends FlxSprite
 		
 		maxVelocity.set(100, 200);
 		drag.x = maxVelocity.x * 3;	
+		
+		this.levelWidth = levelWidth;
 	}
 	
 	override function update() : Void
 	{
 		
 		// clamp...
-		if (x >= Constants.LEVEL_WIDTH - this.width)
+		if (x >= levelWidth - this.width)
 		{
-			x = Constants.LEVEL_WIDTH - this.width;
+			x = levelWidth - this.width;
 		}
 		
 		if (x < Constants.LEVEL_BEGIN_X )
