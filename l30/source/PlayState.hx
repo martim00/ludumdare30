@@ -15,6 +15,7 @@ import flixel.util.FlxPoint;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.addons.ui.FlxUIPopup;
 import flixel.util.FlxTimer;
+import flixel.util.FlxPoint;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -27,6 +28,7 @@ class PlayState extends FlxState
 	private var player1 : Player;
 	private var player2 : Player;
 	
+	private var background : Background;
 	private var ground : Ground;
 	private var blocks : FlxTypedGroup<Block>;	
 	private var giftBlocks : FlxTypedGroup<GiftBlock>;
@@ -57,10 +59,13 @@ class PlayState extends FlxState
 		FlxG.mouse.visible = false;
 		
 		FlxG.cameras.bgColor = FlxColor.WHITE;
+			
+		background = new Background(Constants.LEVEL_BEGIN_X, 0);
+		add(background);
 		
 		ground = new Ground(Constants.LEVEL_BEGIN_X, FlxG.height - 16);
 		add(ground);
-		
+				
 		loadLevel(actualLevel);
 		
 		buildTexts();
@@ -259,8 +264,7 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
-		
-		
+				
 		FlxG.collide(ground, player1);
 		FlxG.collide(ground, player2);
 		

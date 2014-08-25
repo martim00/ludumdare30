@@ -27,7 +27,7 @@ class MenuState extends FlxState
 		var square:FlxSprite = new FlxSprite(10, 10);
 		square.makeGraphic(FlxG.width - 20, FlxG.height - 76, 0xff333333);
 		
-		gamePurpose = new FlxTypeText(15, 10, FlxG.width - 30, "You were separated and now you need to stay together.\n\n'Space' switch between the players\n'X' send a gift to the other\nArrow keys to move\n\n\nPress 'Enter' to start...", 16, true);
+		gamePurpose = new FlxTypeText(15, 10, FlxG.width - 30, "Vocês foram separados e agora precisão ficar juntos!!\n\n'Space' troca o player ativo\n'X' envia o item para o outro player\nSetas movem o player\n\n\nPressione 'Enter' para começar...", 16, true);
 		
 		gamePurpose.delay = 0.03;
 		gamePurpose.showCursor = true;
