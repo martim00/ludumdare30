@@ -202,7 +202,7 @@ class PlayState extends FlxState
 			var xbkup = targetPlayer.x;
 			var ybkup = targetPlayer.y;
 			
-			targetPlayer.y = targetPlayer.y - gift.height;
+			targetPlayer.y = targetPlayer.y - gift.height - 20;
 			
 			gift.x = xbkup;
 			gift.y = ybkup;
