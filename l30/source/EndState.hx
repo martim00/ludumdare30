@@ -21,7 +21,7 @@ class EndState extends FlxState
 		var square:FlxSprite = new FlxSprite(10, 10);
 		square.makeGraphic(FlxG.width - 20, FlxG.height - 76, 0xff333333);
 		
-		gamePurpose = new FlxTypeText(15, 10, FlxG.width - 30, "Made for ludum dare 30 by martim00, xportation and fly\n\nThank you =D", 16, true);
+		gamePurpose = new FlxTypeText(15, 10, FlxG.width - 30, "This game was made for ludum dare 30 by martim00, xportation and fly\n\nThank you =D", 16, true);
 		
 		gamePurpose.delay = 0.03;
 		gamePurpose.showCursor = true;

@@ -43,7 +43,7 @@ class PlayState extends FlxState
 	
 	var isOnTransition : Bool = false;
 	
-	var levelCount : Int = 4;
+	var levelCount : Int = 5;
 	var actualLevel : Int = 1;
 	
 	
@@ -160,7 +160,6 @@ class PlayState extends FlxState
 	{
 		if (FlxG.keys.anyJustPressed(["SPACE"]))
 		{
-			trace("space clicked");
 			player1.toggleIdle();
 			player2.toggleIdle();
 		}		

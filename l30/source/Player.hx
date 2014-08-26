@@ -141,8 +141,8 @@ class Player extends FlxSprite
 	
 	function isTouchingFloor() : Bool
 	{	
-		trace("is touching floor: " + isTouching(FlxObject.FLOOR));
-		trace("is touching right: " + isTouching(FlxObject.RIGHT));
+		//trace("is touching floor: " + isTouching(FlxObject.FLOOR));
+		//trace("is touching right: " + isTouching(FlxObject.RIGHT));
 		
 		return isTouching(FlxObject.FLOOR) 
 		// pelo menos evitamos a escalada com isso
